@@ -36,6 +36,11 @@ export default {
             `${burl}/blog`
         )
     },
+    getArticle:function(id){
+        return axios.get(
+            `${burl}/blog/` + id
+        )
+    },
     isAuth: function () {
         return localStorage.getItem("token") !== null;
     },

@@ -16,17 +16,27 @@ export class Login extends React.Component {
     form() {
         let content = "";
 
-        content += '<form method="POST" action="http:localhost:8080/user/login">';
-        content += '<div class="form-group">';
-        content += '<label for="email">Courriel</label>';
-        content += '<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email@gmail.com" required>';
+        content += '<div id="login">';
+        content += '<div class="ui placeholder segment">';
+        content += '<form class="ui form" action="http://localhost:8080/user/login" method="POST">';
+        content += '<div class="field">';
+        content += '<label>Identifiant</label>';
+        content += '<div class="ui left icon input">';
+        content += '<input type="email" name="email">';
+        content += '<i class="user icon"></i>';
         content += '</div>';
-        content += '<div class="form-group">';
-        content += '<label for="password">Mot de passe</label>';
-        content += '<input type="password" class="form-control" id="password" required>';
         content += ' </div>';
-        content += ' <button type="submit" class="btn btn-primary">Connexion</button>';
-        content += '</form>';
+        content += '<div class="field">';
+        content += '<label>Mot de passe</label>';
+        content += '<div class="ui left icon input">';
+        content += '<input type="password" name="password">';
+        content += ' <i class="lock icon"></i>';
+        content += ' </div>';
+        content += '  </div>';
+        content += ' <button class="ui blue submit button" type="submit">Se connecter</button>';
+        content += ' </form>';
+        content += '</div>';
+        content += '</div>';
 
         this.setState({
             content: content
@@ -34,11 +44,11 @@ export class Login extends React.Component {
     }
 
     render() {
-        const { content } = this.state;
+        const {
+            content
+        } = this.state;
 
-        return (
-            ReactHtmlParser(content)
-            );
-               
+        return (ReactHtmlParser(content));
+
     }
 }
