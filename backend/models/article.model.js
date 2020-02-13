@@ -9,8 +9,7 @@ const articleSchema = new mongoose.Schema({
         required: [true, 'nom manquant']
     },
     description: String,
-    image: String,
-    //user: {type: type.ObjectId, ref:'user'}
+    image: String
 });
 
 // Modèle

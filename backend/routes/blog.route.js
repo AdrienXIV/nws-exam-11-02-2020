@@ -15,7 +15,7 @@ const termination = chalk.bold.magenta; // application quittée
  * GET
  */
 
- // récupérer tous les articles
+// récupérer tous les articles
 router.get('/', function (req, res) {
     articleModel.find()
         .populate('user')
@@ -39,7 +39,7 @@ router.get('/:id', function (req, res) {
             res.status(200).json(model);
         })
         .catch(err => {
-            console.error(error('catch : ' + err));
+            console.error(error('Article get catch : ' + err));
             res.status(500).json({
                 erreur: err
             });
@@ -52,7 +52,7 @@ router.get('/:id', function (req, res) {
  * POST
  */
 
- // ajouter un article
+// ajouter un article
 router.post('/add', function (req, res) {
     let article = {
         name: req.body.name,
@@ -75,14 +75,11 @@ router.post('/add', function (req, res) {
 });
 
 
-
-
-
 /**
  * PATCH
  */
 
- // modifier un article
+// modifier un article
 router.patch('/:id', function (req, res) {
     let article = {
         name: req.body.name,
@@ -112,7 +109,7 @@ router.patch('/:id', function (req, res) {
  * DELETE
  */
 
- // supprimer article
+// supprimer article
 router.delete('/:id', function (req, res) {
     articleModel.findById(req.params.id)
         .then(model => {

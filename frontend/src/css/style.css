@@ -6,29 +6,42 @@ body {
     margin: 0;
 }
 
+#delete {
+    width: 100%;
+    text-align: end;
+}
+
+#delete span:hover {
+    border-bottom: solid 1px black;
+}
+
 /** TOUS LES ARTICLES */
-#articles{
+#articles {
     width: 50%;
     margin: 0 auto;
 }
+
 #articles .ui.avatar.image {
     height: 7rem !important;
     width: 7rem !important;
 }
-#articles .item{
+
+#articles .item {
     cursor: pointer;
     transition-duration: 500ms;
 }
-#articles .item .content{
+
+#articles .item .content {
     color: black;
 }
-#articles .item:hover{
+
+#articles .item:hover {
     background-color: #ecf0f1;
     transform: scale(0.995);
 }
 
 /* UN ARTICLE */
-#article{
+#article {
     margin: 0;
     justify-content: center;
 }
