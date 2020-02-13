@@ -10,7 +10,7 @@ const articleSchema = new mongoose.Schema({
     },
     description: String,
     image: String,
-    user: {type: type.ObjectId, ref:'user'}
+    //user: {type: type.ObjectId, ref:'user'}
 });
 
 // Modèle

@@ -18,8 +18,11 @@ const termination = chalk.bold.magenta; // application quittée
  * GET
  */
 
-router.get('/', function (req, res) {
-
+router.get('/logout', function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) console.error(err);
+        res.status(200);
+    });
 });
 
 
@@ -31,38 +34,33 @@ router.post('/login', function (req, res) {
     let crypt = new Crypto(); // class crypt pour encoder mdp
 
     userModel.findOne({
-        email: req.body.email
-    })
-    .then(user => {
-        if (user) {
-            // user.password = mot de passe dans la bdd
-            if (req.body.password == crypt.decrypt(user.password)) {
-                req.session.regenerate;
-                req.session.user = user;
-                // succès de la requête
-                res.status(200).json({
-                    user, 
-                    session : req.session
-                });
+            email: req.body.email
+        })
+        .then(user => {
+            if (user) {
+                // user.password = mot de passe dans la bdd
+                if (req.body.password == crypt.decrypt(user.password)) {
+                   res.status(200).send('ok');
+
+                } else {
+                    // mauvaise requête
+                    res.status(400).json({
+                        erreur: 'les mots de passe ne correspondent pas !'
+                    });
+                }
             } else {
-                // mauvaise requête
-                res.status(400).json({
-                    erreur: 'les mots de passe ne correspondent pas !'
+                // ressource inexistante
+                res.status(404).json({
+                    erreur: "Utilisateur inexistant. Courriel invalide."
                 });
             }
-        } else {
-            // ressource inexistante
-            res.status(404).json({
-                erreur: "Utilisateur inexistant. Courriel invalide."
+        }).catch(err => {
+            console.error(error('connexionUtilisateur catch : ' + err));
+            // compréhension de la requête mais refus de l'exécuter
+            res.status(500).json({
+                erreur: err
             });
-        }
-    }).catch(err => {
-        console.error(this.error('connexionUtilisateur catch : ' + err));
-        // compréhension de la requête mais refus de l'exécuter
-        res.status(500).json({
-            erreur: err
         });
-    });
 });
 
 router.post('/new', function (req, res) {

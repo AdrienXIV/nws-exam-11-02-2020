@@ -17,18 +17,32 @@ const termination = chalk.bold.magenta; // application quittée
 
 router.get('/', function (req, res) {
     articleModel.find()
-    .populate('user')
-    .then(collection => {
-        res.status(200).json({
-            collection
+        .populate('user')
+        .sort('name')
+        .then(collection => {
+            res.status(200).json(collection);
+        })
+        .catch(err => {
+            console.error(error('catch : ' + err));
+            res.status(500).json({
+                erreur: err
+            });
         });
-    })
-    .catch(err => {
-        console.error(this.error('catch : ' + err));
-        res.status(500).json({
-            erreur: err
+
+});
+
+router.get('/:id', function (req, res) {
+    articleModel.findById(req.params.id)
+        .populate('user')
+        .then(model => {
+            res.status(200).json(model);
+        })
+        .catch(err => {
+            console.error(error('catch : ' + err));
+            res.status(500).json({
+                erreur: err
+            });
         });
-    });
 });
 
 
@@ -37,13 +51,11 @@ router.get('/', function (req, res) {
  * POST
  */
 
-
 router.post('/add', function (req, res) {
     let article = {
         name: req.body.name,
         description: req.body.description,
-        image: req.body.image,
-        user: req.session.user._id
+        image: req.body.image
     };
 
     articleModel.create(article)
@@ -67,7 +79,27 @@ router.post('/add', function (req, res) {
 /**
  * PATCH
  */
+router.patch('/:id', function (req, res) {
+    let article = {
+        name: req.body.name,
+        description: req.body.description,
+        image: req.body.image
+    };
 
+    articleModel.findById(req.params.id)
+        .then(model => {
+            return model.updateOne(article)
+        })
+        .then(model => {
+            res.status(201).json(model);
+        })
+        .catch(err => {
+            console.error(this.error('Article update catch : ' + err));
+            res.status(500).json({
+                erreur: err
+            });
+        });
+});
 
 
 

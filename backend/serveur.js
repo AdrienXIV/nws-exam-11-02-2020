@@ -14,16 +14,6 @@ const termination = chalk.bold.magenta; // application quittée
 
 const app = express();
 
-// Midleware
-app.use(bodyParser.json());
-app.use(cors());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.use(express('public'));
-
-
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
 // initialisation de la session
@@ -39,6 +29,17 @@ app.use(session({
         expires: expiryDate
     }
 }));
+
+
+
+// Midleware
+app.use(bodyParser.json());
+app.use(cors());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(express('public'));
 
 
 // #######################
@@ -90,12 +91,6 @@ app.listen(PORT, function (err) {
     if (err) console.error(error("erreur : " + err));
     else
         console.log(connected('Serveur lancé sur le port ' + PORT));
-});
-
-
-app.get('/', function (req, res, err) {
-    res.setHeader('Content-Type', 'application/json')
-    res.json(req.session)
 });
 
 
