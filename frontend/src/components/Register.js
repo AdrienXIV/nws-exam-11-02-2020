@@ -14,11 +14,7 @@ export class Register extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
-    componentDidMount() {
-        
-    };
-
-    
+    // changement valeur input
   handleChange(event) {
     this.setState({
         [event.target.name]: event.target.value
@@ -26,41 +22,43 @@ export class Register extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  // envoie du formulaire
+    handleSubmit(event) {
+    event.preventDefault();
 
-      event.preventDefault();
-let data = {
-    email:this.state.email,
-    password:this.state.password
-};
-      fetch(`http://localhost:8080/user/new`, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-}).then(res =>{
-    console.log(res)
-    if (res.status === 200) {
-        this.setState({
-            redirect: true
-          });
-      } else {
-        const error = new Error(res.error);
-        throw error;
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Identifiant ou mot de passe incorrects.');
-    });
+    let data = {
+        email: this.state.email,
+        password: this.state.password
+    };
+
+    fetch(`http://localhost:8080/user/new`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            console.log(res)
+            if (res.status === 200) {
+                this.setState({
+                    redirect: true
+                });
+            } else {
+                const error = new Error(res.error);
+                throw error;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Identifiant ou mot de passe incorrects.');
+        });
 }
 
 renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/blog' />
+        return <Redirect to = '/blog' / >
     }
-  }
+}
 
     render() {
 

@@ -23,6 +23,7 @@ export class Add extends React.Component {
     this.renderPosts();
   }
 
+  // changement valeur input
   handleChange(event) {
     this.setState({
         [event.target.name]: event.target.value
@@ -30,6 +31,7 @@ export class Add extends React.Component {
     });
   }
 
+  // envoie du formulaire
   handleSubmit(event) {
     let data = {
       name:this.state.name,

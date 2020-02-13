@@ -14,24 +14,22 @@ export class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
-    componentDidMount() {
-        
-    };
-
-    
+    // changement valeur input
   handleChange(event) {
     this.setState({
         [event.target.name]: event.target.value
-      
     });
   }
 
+  // envoie du formulaire
   handleSubmit(event) {
       event.preventDefault();
+
       let data = {
           email: this.state.email,
           password: this.state.password
       };
+
       fetch(`http://localhost:8080/user/login`, {
               method: 'POST',
               body: JSON.stringify(data),
@@ -54,6 +52,7 @@ export class Login extends React.Component {
           });
   }
 
+  // redirection
 renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to='/blog' />
@@ -86,7 +85,8 @@ renderRedirect = () => {
         <div  className="middle aligned column">
         <Link to="/user/new"><div className="ui big button">
         <i className="signup icon"></i>S'inscrire
-        </div></Link>
+        </div>
+        </Link>
         </div>
         </div>
         <div className="ui vertical divider">Ou
