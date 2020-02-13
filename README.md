@@ -9,12 +9,32 @@ Le projet se présente sous forme d'un blog sur le sujet des éléments du table
  
 ## Frontend  
   
-- Techonologie : React  
+- Techonologie : React (approfondir le framework pour ensuite découvrir ReactNative)  
   
+# Routes  
+- /blog : tous les articles  
+- /blog/:id : affichage d'un article  
+- /blog/new : ajout d'un article  
+
+Partie non finalisée  
+- /user/login : connexion d'un utilisateur  
+- /user/new  : nouvel utilisateur  
 
 ## Backend  
   
-- Technologie : NodeJS avec le Frameword Express pour le serveur  
+- Port 8080  
+- Technologie : NodeJS avec le Frameword Express pour le serveur (maitriser le javascript et les serveurs web avec node)  
+  
+# Routes  
+- /blog : tous les articles  
+- /blog/:id (GET) : récupération d'un article  
+- /blog/:id (PATCH) : modification d'un article  
+- /blog/:id (DELETE) : suppression d'un article
+- /blog/add (POST) : ajout d'un article  
+
+Partie non finalisée  
+- /user/login (GET) : connexion d'un utilisateur  
+- /user/new (POST) : nouvel utilisateur  
   
 
 ## Prérequis  
@@ -36,6 +56,7 @@ Git clone du projet.
 cd backend
 npm install
 docker-compose up -d (si pas de mongodb d'installé)
+docker run -p 27017:27017 -d mongo:3.2.6
 node serveur.js
 
 ...
@@ -44,4 +65,7 @@ cd ..
 cd frontend
 npm install
 npm start
-```
+```  
+
+## Bugs
+- Catch : récupération d'un article affiche un message dans la console sans impacter le serveur. (backend/routes/blog.route.js ligne 35)
