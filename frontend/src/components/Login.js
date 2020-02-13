@@ -1,54 +1,98 @@
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import { Redirect, Link } from 'react-router-dom';
 
 export class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: ""
+            redirect:false,
+            email:"",
+            password:""
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     };
 
     componentDidMount() {
-        this.form();
+        
     };
 
-    form() {
-        let content = "";
+    
+  handleChange(event) {
+    this.setState({
+        [event.target.name]: event.target.value
+      
+    });
+  }
 
-        content += '<div id="login">';
-        content += '<div class="ui placeholder segment">';
-        content += '<form class="ui form" action="http://localhost:8080/user/login" method="POST">';
-        content += '<div class="field">';
-        content += '<label>Identifiant</label>';
-        content += '<div class="ui left icon input">';
-        content += '<input type="email" name="email">';
-        content += '<i class="user icon"></i>';
-        content += '</div>';
-        content += ' </div>';
-        content += '<div class="field">';
-        content += '<label>Mot de passe</label>';
-        content += '<div class="ui left icon input">';
-        content += '<input type="password" name="password">';
-        content += ' <i class="lock icon"></i>';
-        content += ' </div>';
-        content += '  </div>';
-        content += ' <button class="ui blue submit button" type="submit">Se connecter</button>';
-        content += ' </form>';
-        content += '</div>';
-        content += '</div>';
+  handleSubmit(event) {
+      event.preventDefault();
+      let data = {
+          email: this.state.email,
+          password: this.state.password
+      };
+      fetch(`http://localhost:8080/user/login`, {
+              method: 'POST',
+              body: JSON.stringify(data),
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          }).then(res => {
+              if (res.status === 200) {
+                  this.setState({
+                      redirect: true
+                  });
+              } else {
+                  const error = new Error(res.error);
+                  throw error;
+              }
+          })
+          .catch(err => {
+              console.error(err);
+              alert('Identifiant ou mot de passe incorrects.');
+          });
+  }
 
-        this.setState({
-            content: content
-        });
+renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/blog' />
     }
+  }
 
     render() {
-        const {
-            content
-        } = this.state;
-
-        return (ReactHtmlParser(content));
+        return <div className="ui placeholder segment">
+        <div className="ui two column very relaxed stackable grid">
+        <div className="column">
+        <form className="ui form" onSubmit={this.handleSubmit}>
+        <div className="field">
+        <label>Identifiant</label>
+        <div className="ui left icon input">
+        <input type="email" name="email" placeholder="email@gmail.com" value={this.state.email} onChange={this.handleChange}/>
+        <i className="user icon"></i>
+        </div>
+        </div>
+        <div className="field">
+        <label>Mot de passe</label>
+        <div className="ui left icon input">
+        <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
+        <i className="user icon"></i>
+        </div>
+        </div>
+        {this.renderRedirect()}
+        <button className="ui button" type="submit">Se connecter</button>
+        </form>
+        </div>
+        <div  className="middle aligned column">
+        <Link to="/user/new"><div className="ui big button">
+        <i className="signup icon"></i>S'inscrire
+        </div></Link>
+        </div>
+        </div>
+        <div className="ui vertical divider">Ou
+        </div>
+        </div>
+        
 
     }
 }

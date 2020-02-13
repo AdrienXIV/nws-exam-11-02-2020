@@ -19,8 +19,6 @@ export class Articles extends React.Component {
     try {
 
       let res = await API.getArticles();
-      console.log(res.data)
-      // this will re render the view with new data
       this.setState({
         articles: res.data
       });

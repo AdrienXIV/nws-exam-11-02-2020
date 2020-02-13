@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
-import API from '../utils/API';
+import API from '../utils/API'
 import { Redirect } from 'react-router-dom';
 
-export class Edit extends React.Component {
+export class Add extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,21 +34,20 @@ export class Edit extends React.Component {
     let data = {
       name:this.state.name,
       image:this.state.image,
-      description:this.state.description,
-      user : this.state.id
+      description:this.state.description
     };
 
       event.preventDefault();
-      this.setState({ isSubmitting: true });
+      this.setState({ redirect: true });
 
-      fetch(`http://localhost:8080/blog/`+ this.state.id, {
-    method: 'PATCH',
+      fetch(`http://localhost:8080/blog/add`, {
+    method: 'POST',
     body: JSON.stringify(data),
     headers: {
         'Content-Type': 'application/json'
     }
 }).then(res =>{
-    this.setState({redirect: true});
+    this.setState({ isSubmitting: false });
     return res.json();
 })
     .then(data => console.log(data))

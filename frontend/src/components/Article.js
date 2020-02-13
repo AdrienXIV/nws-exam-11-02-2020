@@ -1,9 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import API from '../utils/API'
-import ReactHtmlParser from 'react-html-parser';
-import { Link, Switch, Route } from "react-router-dom";
-import { Edit } from './Edit';
 
 export class Article extends React.Component {
   constructor(props) {
