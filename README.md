@@ -12,10 +12,10 @@ Le projet se présente sous forme d'un blog sur le sujet des éléments du table
 - Npm  
 - Docker (image mongodb) ou MongoDB  
 
-Si MongoDB :
-	- Créer base de données < blog >  
-	- Créer collection < article >  
-	- Importer fichier < data.json > se trouvant dans backend/mongo-seed/  
+Si MongoDB :  
+- Créer base de données < blog >  
+- Créer collection < article >  
+- Importer fichier < data.json > se trouvant dans backend/mongo-seed/  
   
 ## Installation  
   
