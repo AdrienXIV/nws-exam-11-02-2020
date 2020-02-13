@@ -6,6 +6,17 @@ Examen du 11 février 2020.
 
 Le projet se présente sous forme d'un blog sur le sujet des éléments du tableau de Mendeleïev.  
   
+ 
+## Frontend  
+  
+- Techonologie : React  
+  
+
+## Backend  
+  
+- Technologie : NodeJS avec le Frameword Express pour le serveur  
+  
+
 ## Prérequis  
   
 - Node  
