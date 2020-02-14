@@ -56,7 +56,6 @@ Git clone du projet.
 cd backend
 npm install
 docker-compose up -d (si pas de mongodb d'installé)
-docker run -p 27017:27017 -d mongo:3.2.6
 node serveur.js
 
 ...
